@@ -2,7 +2,7 @@
 if (session_status() === PHP_SESSION_NONE) session_start();
 
 
-$menus = [
+$menu = [
     'main' => 'Home',
     'images' => 'Images',
     'contact' => 'Contact',
