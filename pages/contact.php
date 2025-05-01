@@ -1,6 +1,7 @@
 <?php
 $errors = [];
 $success = false;
+$name = $email = $message = '';
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $name = trim($_POST["name"]);
@@ -8,11 +9,12 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $message = trim($_POST["message"]);
 
     if (empty($name)) $errors[] = "Name is required.";
-    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) $errors[] = "Invalid email.";
+    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) $errors[] = "Invalid email address.";
     if (empty($message)) $errors[] = "Message is required.";
 
     if (empty($errors)) {
         $success = true;
+
     }
 }
 ?>
@@ -28,16 +30,16 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 <?php if ($success): ?>
     <div style="color: green;">
         <p>Thank you for your message!</p>
-        <p><strong><?php echo htmlspecialchars($name); ?></strong> (<?php echo htmlspecialchars($email); ?>):</p>
-        <p><?php echo nl2br(htmlspecialchars($message)); ?></p>
+        <p><strong><?= htmlspecialchars($name) ?></strong> (<?= htmlspecialchars($email) ?>):</p>
+        <p><?= nl2br(htmlspecialchars($message)) ?></p>
     </div>
 <?php endif; ?>
 
 <form id="contactForm" method="POST" onsubmit="return validateForm();">
-    <label>Name: <input type="text" name="name" id="name"></label><br><br>
-    <label>Email: <input type="text" name="email" id="email"></label><br><br>
+    <label>Name: <input type="text" name="name" id="name" value="<?= htmlspecialchars($name) ?>"></label><br><br>
+    <label>Email: <input type="text" name="email" id="email" value="<?= htmlspecialchars($email) ?>"></label><br><br>
     <label>Message:<br>
-        <textarea name="message" id="message" rows="5" cols="40"></textarea>
+        <textarea name="message" id="message" rows="5" cols="40"><?= htmlspecialchars($message) ?></textarea>
     </label><br><br>
     <button type="submit">Send</button>
 </form>

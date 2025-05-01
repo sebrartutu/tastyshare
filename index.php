@@ -17,4 +17,16 @@ if (file_exists($page_path)) {
 
 // Footer
 include 'templates/footer.php';
+
+require_once 'config.php';
+
+$page = $_GET['page'] ?? 'home';
+
+if (!array_key_exists($page, $menu)) {
+    $page = 'home'; // Varsayılan sayfa
+}
+
+include 'header.php';
+include 'pages/' . $page . '.php';
+include 'footer.php';
 ?>
