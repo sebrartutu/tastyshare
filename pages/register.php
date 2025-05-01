@@ -1,24 +1,24 @@
 <?php
-require_once 'config.php';
-require_once 'db.php';
-
+require_once 'config.php'; 
 $errors = [];
 $success = false;
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
-    $name = trim($_POST["name"]);
+    $family_name = trim($_POST["family_name"]);
+    $surname = trim($_POST["surname"]);
     $username = trim($_POST["username"]);
     $password = $_POST["password"];
 
-    if (empty($name) || empty($username) || empty($password)) {
+    if (empty($family_name) || empty($surname) || empty($username) || empty($password)) {
         $errors[] = "All fields are required.";
     }
 
     if (empty($errors)) {
-        $stmt = $pdo->prepare("INSERT INTO users (name, username, password) VALUES (?, ?, ?)");
         $hashed = password_hash($password, PASSWORD_DEFAULT);
+        $stmt = $dbh->prepare("INSERT INTO users (family_name, surname, username, password) VALUES (?, ?, ?, ?)");
+
         try {
-            $stmt->execute([$name, $username, $hashed]);
+            $stmt->execute([$family_name, $surname, $username, $hashed]);
             $success = true;
         } catch (PDOException $e) {
             $errors[] = "Username already exists.";
@@ -28,12 +28,19 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 ?>
 
 <h2>Register</h2>
-<?php foreach ($errors as $e) echo "<p style='color:red;'>$e</p>"; ?>
-<?php if ($success) echo "<p style='color:green;'>Registration successful!</p>"; ?>
+
+<?php foreach ($errors as $e): ?>
+    <p style='color:red;'><?= htmlspecialchars($e) ?></p>
+<?php endforeach; ?>
+
+<?php if ($success): ?>
+    <p style='color:green;'>Registration successful! <a href="login.php">Login here</a></p>
+<?php endif; ?>
 
 <form method="POST">
-    <label>Name: <input name="name"></label><br><br>
-    <label>Username: <input name="username"></label><br><br>
-    <label>Password: <input type="password" name="password"></label><br><br>
+    <label>Family Name: <input name="family_name" required></label><br><br>
+    <label>Surname: <input name="surname" required></label><br><br>
+    <label>Username: <input name="username" required></label><br><br>
+    <label>Password: <input type="password" name="password" required></label><br><br>
     <button type="submit">Register</button>
 </form>
