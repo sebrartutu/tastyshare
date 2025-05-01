@@ -12,7 +12,7 @@
     <nav>
         <ul>
             <?php
-            foreach ($menus as $key => $value) {
+            foreach ($menu as $key => $value) {
                 if (isset($_SESSION['user']) && $key == 'login') continue;
                 if (!isset($_SESSION['user']) && $key == 'logout') continue;
 
