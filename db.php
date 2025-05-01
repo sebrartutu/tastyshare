@@ -1,5 +1,5 @@
 <?php
-$host = 'localhost'; // Hosting'e yüklediğinde değişir
+$host = 'localhost'; 
 $dbname = 'your_db_name';
 $dbuser = 'your_db_user';
 $dbpass = 'your_db_password';
