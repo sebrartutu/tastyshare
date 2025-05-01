@@ -1,11 +1,16 @@
 <?php
+ini_set('display_errors', 1);
+error_reporting(E_ALL);
+?>
+
+<?php
 session_start();
 require_once 'config.php';
 
 $page = $_GET['page'] ?? 'main';
 
 if (!array_key_exists($page, $menu)) {
-    $page = 'main'; // varsayılan sayfa
+    $page = 'main'; 
 }
 
 include 'templates/header.php';
