@@ -7,7 +7,7 @@
 
 <h3>Quick Preview</h3>
 <video width="320" height="240" controls>
-    <source src="assets/videos/preview.mp4" type="video/mp4">
+    <source src="assets/uploads/quicka_preview_video.mp4" type="video/mp4">
     Your browser does not support the video tag.
 </video>
 
