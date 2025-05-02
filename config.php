@@ -17,7 +17,7 @@ $menu = [
 $site_title = "TastyShare";
 
 
-$host = 'localhost';
+$host = '127.0.0.1';
 $dbname = 'tastyshare';     
 $dbuser = 'root';         
 $dbpass = '';               
