@@ -26,17 +26,18 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     }
 }
 ?>
+<div class="register_box">
+  <h2>Login</h2>
 
-<h2>Login</h2>
-
-<?php foreach ($errors as $e): ?>
+  <?php foreach ($errors as $e): ?>
     <p style='color:red;'><?= htmlspecialchars($e) ?></p>
-<?php endforeach; ?>
+  <?php endforeach; ?>
 
-<form method="POST">
+  <form method="POST">
     <label>Username: <input name="username" required></label><br><br>
     <label>Password: <input type="password" name="password" required></label><br><br>
     <button type="submit">Login</button>
-</form>
+  </form>
 
-<p>Don't have an account? <a href="index.php?page=register">Register here</a></p>
+  <p>Don't have an account? <a href="index.php?page=register">Register here</a></p>
+</div>
