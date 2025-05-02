@@ -22,7 +22,7 @@ $dbname = 'tastyshare';
 $dbuser = 'root';         
 $dbpass = '';               
 
-$dsn = "mysql:host=$host;dbname=$dbname;charset=utf8mb4";
+$dsn = "mysql:host=127.0.0.1;dbname=tastyshare;charset=utf8mb4";
 
 try {
     $dbh = new PDO($dsn, $dbuser, $dbpass, [
