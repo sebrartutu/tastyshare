@@ -68,7 +68,7 @@ foreach (scandir($uploadDir) as $file) {
     <title>Recipe Gallery</title>
 </head>
 <body>
-
+<div class="register-box">
 <h2>Recipe Gallery</h2>
 
 <?php if ($uploadSuccess): ?>
@@ -101,6 +101,7 @@ foreach (scandir($uploadDir) as $file) {
             <p><?= nl2br(htmlspecialchars($r['description'])) ?></p>
         </div>
     <?php endforeach; ?>
+</div>
 </div>
 
 </body>
