@@ -3,40 +3,50 @@ if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
-$loggedIn = isset($_SESSION['user_id']);
-$uploadDir = "../assets/uploads_recipes/";
+$loggedIn = isset($_SESSION['user_id']) && !empty($_SESSION['user_id']);
+
+$uploadDir = __DIR__ . "/../assets/uploads_recipes/";
+$webPath = "../assets/uploads_recipes/";
 $uploadSuccess = false;
 $error = "";
 
-// Klasör yoksa oluştur
 if (!file_exists($uploadDir)) {
     mkdir($uploadDir, 0755, true);
 }
 
-// Tarif yükleme işlemi (sadece giriş yapanlar)
 if ($loggedIn && $_SERVER["REQUEST_METHOD"] === "POST" && isset($_FILES["recipe_image"])) {
     $file = $_FILES["recipe_image"];
     $description = trim($_POST["description"] ?? '');
     $allowedTypes = ["image/jpeg", "image/png", "image/gif"];
+    $maxSize = 2 * 1024 * 1024; 
 
-    if ($file["error"] === 0 && in_array($file["type"], $allowedTypes) && !empty($description)) {
+    if (
+        $file["error"] === 0 &&
+        in_array($file["type"], $allowedTypes) &&
+        !empty($description) &&
+        $file["size"] <= $maxSize
+    ) {
         $filenameBase = time();
-        $filename = $filenameBase . "_" . basename($file["name"]);
+        $safeName = preg_replace("/[^a-zA-Z0-9\.\-_]/", "_", basename($file["name"]));
+        $filename = $filenameBase . "_" . $safeName;
+
         $targetPath = $uploadDir . $filename;
         $textPath = $uploadDir . $filenameBase . ".txt";
 
         if (move_uploaded_file($file["tmp_name"], $targetPath)) {
-            file_put_contents($textPath, $description);
-            $uploadSuccess = true;
+            if (file_put_contents($textPath, $description)) {
+                $uploadSuccess = true;
+            } else {
+                $error = "Image uploaded, but description could not be saved.";
+            }
         } else {
-            $error = "Upload failed.";
+            $error = "Image upload failed.";
         }
     } else {
-        $error = "Invalid file or missing description.";
+        $error = "Invalid file, too large (max 2MB), or missing description.";
     }
 }
 
-// Tarifleri oku
 $recipes = [];
 foreach (scandir($uploadDir) as $file) {
     if (preg_match('/^\d+_.+\.(jpg|jpeg|png|gif)$/i', $file)) {
@@ -51,12 +61,20 @@ foreach (scandir($uploadDir) as $file) {
 }
 ?>
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Recipe Gallery</title>
+</head>
+<body>
+
 <h2>Recipe Gallery</h2>
 
 <?php if ($uploadSuccess): ?>
     <p style="color: green;">✅ Recipe uploaded successfully!</p>
 <?php elseif ($error): ?>
-    <p style="color: red;">❌ <?= $error ?></p>
+    <p style="color: red;">❌ <?= htmlspecialchars($error) ?></p>
 <?php endif; ?>
 
 <?php if ($loggedIn): ?>
@@ -76,12 +94,14 @@ foreach (scandir($uploadDir) as $file) {
 
 <hr>
 
-<!-- Tarif listesi -->
 <div style="display: flex; flex-wrap: wrap; gap: 20px;">
     <?php foreach ($recipes as $r): ?>
         <div style="text-align: center; width: 220px;">
-            <img src="../assets/uploads_recipes/<?= htmlspecialchars($r['image']) ?>" width="200" alt="Recipe"><br>
+            <img src="<?= $webPath . htmlspecialchars($r['image']) ?>" width="200" alt="Recipe"><br>
             <p><?= nl2br(htmlspecialchars($r['description'])) ?></p>
         </div>
     <?php endforeach; ?>
 </div>
+
+</body>
+</html>
