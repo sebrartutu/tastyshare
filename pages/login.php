@@ -26,7 +26,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     }
 }
 ?>
-<div class="register_box">
+<div class="register-box">
   <h2>Login</h2>
 
   <?php foreach ($errors as $e): ?>
