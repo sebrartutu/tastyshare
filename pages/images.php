@@ -1,31 +1,19 @@
 <?php
-session_start();
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 
-$loggedIn = isset($_SESSION['user_id']); 
-
+$loggedIn = isset($_SESSION['user_id']);
 $uploadDir = "../assets/uploads/";
 $uploadSuccess = false;
 $error = "";
 
-
+// Klasör yoksa oluştur
 if (!file_exists($uploadDir)) {
     mkdir($uploadDir, 0755, true);
 }
 
-
-$defaults = [
-    ['file' => '/mnt/data/54e2f248-3d0e-4050-b38f-9a429446d051.png', 'name' => 'pide.webp'],
-    ['file' => '/mnt/data/09e64e8f-835f-4eba-8975-61b377b288cc.png', 'name' => 'sarma.jpg'],
-    ['file' => '/mnt/data/6b99a719-383b-4f52-aa98-2c4c69d1d880.png', 'name' => 'makarna.jpg']
-];
-foreach ($defaults as $img) {
-    $targetPath = $uploadDir . $img['name'];
-    if (!file_exists($targetPath)) {
-        copy($img['file'], $targetPath);
-    }
-}
-
-
+// Silme işlemi (sadece giriş yapmış kullanıcı için)
 if ($loggedIn && $_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['delete'])) {
     $fileToDelete = basename($_POST['delete']);
     $filePath = $uploadDir . $fileToDelete;
@@ -34,7 +22,7 @@ if ($loggedIn && $_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['delete']
     }
 }
 
-
+// Yükleme işlemi (sadece giriş yapmış kullanıcı için)
 if ($loggedIn && $_SERVER["REQUEST_METHOD"] === "POST" && isset($_FILES["image"])) {
     $file = $_FILES["image"];
     $allowedTypes = ["image/jpeg", "image/png", "image/gif"];
@@ -52,7 +40,7 @@ if ($loggedIn && $_SERVER["REQUEST_METHOD"] === "POST" && isset($_FILES["image"]
     }
 }
 
-
+// Mevcut resimleri al
 $images = array_diff(scandir($uploadDir), ['.', '..']);
 ?>
 
@@ -64,7 +52,7 @@ $images = array_diff(scandir($uploadDir), ['.', '..']);
     <p style="color: red;">❌ <?= $error ?></p>
 <?php endif; ?>
 
-
+<!-- Yükleme Formu -->
 <?php if ($loggedIn): ?>
     <form method="POST" enctype="multipart/form-data">
         <label>Select Image:
@@ -78,7 +66,7 @@ $images = array_diff(scandir($uploadDir), ['.', '..']);
 
 <hr>
 
-
+<!-- Galeri -->
 <div style="display: flex; flex-wrap: wrap; gap: 20px;">
     <?php foreach ($images as $img): ?>
         <div style="text-align: center;">
@@ -90,5 +78,5 @@ $images = array_diff(scandir($uploadDir), ['.', '..']);
                 </form>
             <?php endif; ?>
         </div>
-    <?php endforeach ?>
+    <?php endforeach; ?>
 </div>
