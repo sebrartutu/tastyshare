@@ -23,7 +23,7 @@
     </nav>
 
     <?php if (isset($_SESSION['user'])): ?>
-        <p>Logged-in: <?= $_SESSION['user']['name'] ?> (<?= $_SESSION['user']['username'] ?>)</p>
+        <p>Logged-in: <?= $_SESSION['user']['family name'] ?> (<?= $_SESSION['user']['username'] ?>)</p>
     <?php endif; ?>
 </header>
 <main>
