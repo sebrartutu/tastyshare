@@ -8,10 +8,8 @@ $menu = [
     'contact' => 'Contact',
     'messages' => 'Messages',
     'recipes' => 'Recipes',
-    'ımages'=> 'Images',
     'login' => 'Login',
     'logout' => 'Logout',
-    
     'register' => null
 ];
 
