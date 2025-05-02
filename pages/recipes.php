@@ -3,7 +3,7 @@ if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
-$loggedIn = isset($_SESSION['user_id']) && !empty($_SESSION['user_id']);
+$loggedIn = isset($_SESSION['user']);
 
 $uploadDir = __DIR__ . "/../assets/uploads_recipes/";
 $webPath = "../assets/uploads_recipes/";
