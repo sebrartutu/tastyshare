@@ -34,7 +34,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
   <?php endforeach; ?>
 
   <?php if ($success): ?>
-    <p style='color:green;'>Registration successful! <a href="login.php">Login here</a></p>
+    <p style='color:green;'>Registration successful! <a href="index.php?page=login">Login here</a></p>
   <?php endif; ?>
 
   <form method="POST">
