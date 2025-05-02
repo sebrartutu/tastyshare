@@ -35,6 +35,19 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     </div>
 <?php endif; ?>
 
+<form action="add_message.php" method="post">
+  <label>Name:</label><br>
+  <input type="text" name="name" required><br>
+
+  <label>Email:</label><br>
+  <input type="email" name="email" required><br>
+
+  <label>Message:</label><br>
+  <textarea name="message" required></textarea><br>
+
+  <button type="submit">Send Message</button>
+</form>
+
 <form id="contactForm" method="POST" onsubmit="return validateForm();">
     <label>Name: <input type="text" name="name" id="name" value="<?= htmlspecialchars($name) ?>"></label><br><br>
     <label>Email: <input type="text" name="email" id="email" value="<?= htmlspecialchars($email) ?>"></label><br><br>
