@@ -1,5 +1,11 @@
 <?php
-require 'config.php'; // veritabanı bağlantısı burada
+require 'config.php';
+
+if ($dbh) {
+    echo "✅ VERİTABANI BAĞLANTISI BAŞARILI<br>";
+} else {
+    echo "❌ BAĞLANTI YOK<br>";
+}
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $name = $_POST['name'] ?? '';
