@@ -68,7 +68,6 @@ foreach (scandir($uploadDir) as $file) {
     <title>Recipe Gallery</title>
 </head>
 <body>
-<div class="register-box">
 <h2>Recipe Gallery</h2>
 
 <?php if ($uploadSuccess): ?>
@@ -78,7 +77,7 @@ foreach (scandir($uploadDir) as $file) {
 <?php endif; ?>
 
 <?php if ($loggedIn): ?>
-    <!-- Tarif ekleme formu -->
+    
     <form method="POST" enctype="multipart/form-data">
         <label>Select Image:
             <input type="file" name="recipe_image" accept="image/*" required>
@@ -102,7 +101,5 @@ foreach (scandir($uploadDir) as $file) {
         </div>
     <?php endforeach; ?>
 </div>
-</div>
-
 </body>
 </html>
