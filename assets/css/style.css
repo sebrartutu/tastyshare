@@ -39,3 +39,43 @@ footer {
     text-align: center;
     padding: 10px;
 }
+.register-box {
+    background-color: #FFA500; /* turuncu */
+    border-radius: 20px;
+    padding: 30px;
+    max-width: 400px;
+    margin: 40px auto;
+    box-shadow: 0 0 15px rgba(0,0,0,0.2);
+    color: white;
+    font-family: sans-serif;
+}
+
+.register-box h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.register-box input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: none;
+    border-radius: 15px;
+    font-size: 16px;
+}
+
+.register-box button {
+    width: 100%;
+    padding: 12px;
+    background-color: white;
+    color: #FFA500;
+    font-weight: bold;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.register-box button:hover {
+    background-color: #f0f0f0;
+}
