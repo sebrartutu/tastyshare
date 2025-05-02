@@ -17,10 +17,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
         if ($user && password_verify($password, $user['password'])) {
-            $_SESSION['user'] = $user; 
-            [
-              'username' => $user['username'],
-              'name' => $user['family_name'] . ' ' . $user['surname']
+            
+            $_SESSION['user'] = [
+                'username' => $user['username'],
+                'name' => $user['family_name'] . ' ' . $user['surname']
             ];
             header("Location: index.php"); 
             exit;
@@ -43,5 +43,5 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     <button type="submit">Login</button>
   </form>
 
-  <p>Don't have an account? <a href="index.php?page=register">Register here</a></p>
+  <p>Don't have an account? <a href="index.php?page=register">Register here</a></p>
 </div>
