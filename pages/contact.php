@@ -1,4 +1,6 @@
 <?php
+require 'config.php'; // Veritabanı bağlantısı
+
 $errors = [];
 $success = false;
 $name = $email = $message = '';
@@ -13,8 +15,13 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     if (empty($message)) $errors[] = "Message is required.";
 
     if (empty($errors)) {
-        $success = true;
-
+        // Veritabanına kaydet
+        $stmt = $dbh->prepare("INSERT INTO messages (name, email, message) VALUES (?, ?, ?)");
+        if ($stmt->execute([$name, $email, $message])) {
+            $success = true;
+        } else {
+            $errors[] = "Database error: mesaj kaydedilemedi.";
+        }
     }
 }
 ?>
@@ -34,19 +41,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         <p><?= nl2br(htmlspecialchars($message)) ?></p>
     </div>
 <?php endif; ?>
-
-<form action="add_message.php" method="post">
-  <label>Name:</label><br>
-  <input type="text" name="name" required><br>
-
-  <label>Email:</label><br>
-  <input type="email" name="email" required><br>
-
-  <label>Message:</label><br>
-  <textarea name="message" required></textarea><br>
-
-  <button type="submit">Send Message</button>
-</form>
 
 <form id="contactForm" method="POST" onsubmit="return validateForm();">
     <label>Name: <input type="text" name="name" id="name" value="<?= htmlspecialchars($name) ?>"></label><br><br>
