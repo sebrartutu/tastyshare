@@ -1,5 +1,5 @@
 <?php
-require 'config.php'; // Veritabanı bağlantısı
+require 'config.php'; 
 
 $errors = [];
 $success = false;
@@ -15,7 +15,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     if (empty($message)) $errors[] = "Message is required.";
 
     if (empty($errors)) {
-        // Veritabanına kaydet
+        
         $stmt = $dbh->prepare("INSERT INTO messages (name, email, message) VALUES (?, ?, ?)");
         if ($stmt->execute([$name, $email, $message])) {
             $success = true;
