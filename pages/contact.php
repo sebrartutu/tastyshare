@@ -25,7 +25,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     }
 }
 ?>
-
+<div class="register-box">
 <h2>Contact Us</h2>
 
 <?php if (!empty($errors)): ?>
@@ -70,3 +70,4 @@ function validateForm() {
     return true;
 }
 </script>
+</div>
