@@ -4,12 +4,13 @@ require 'config.php';
 $stmt = $dbh->query("SELECT * FROM messages ORDER BY created_at DESC");
 $messages = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
-
-<h1>Messages</h1>
-<table border="1" cellpadding="8" cellspacing="0">
-  <tr>
-    <th>Name</th><th>Email</th><th>Message</th><th>Date</th>
-  </tr>
+<div class="register-box">
+  <h1>Messages</h1>
+  <table border="1" cellpadding="8" cellspacing="0">
+    <tr>
+      <th>Name</th><th>Email</th><th>Message</th><th>Date</th>
+    </tr>
+</div>
   <?php foreach ($messages as $msg): ?>
     <tr>
       <td><?= htmlspecialchars($msg['name']) ?></td>
