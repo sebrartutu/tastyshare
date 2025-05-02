@@ -7,9 +7,11 @@ $menu = [
     'images' => 'Images',
     'contact' => 'Contact',
     'messages' => 'Messages',
+    'recipes' => 'Recipes',
+    'images'=> 'Images',
     'login' => 'Login',
     'logout' => 'Logout',
-    'recipes' => 'Recipes',
+    
     'register' => null
 ];
 
