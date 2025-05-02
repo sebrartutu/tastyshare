@@ -22,8 +22,9 @@
         </ul>
     </nav>
 
-    <?php if (isset($_SESSION['user'])): ?>
-        <p>Logged-in: <?= $_SESSION['user'][' username'] ?> (<?= $_SESSION['user']['username'] ?>)</p>
-    <?php endif; ?>
+    <?php if (isset($_SESSION['user']['username'])): ?>
+    <p>Logged-in: <?= htmlspecialchars($_SESSION['user']['username']) ?></p>
+<?php endif; ?>
+
 </header>
 <main>
