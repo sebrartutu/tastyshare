@@ -6,7 +6,6 @@ $stmt = $dbh->query("SELECT messages.*, IFNULL(users.username, 'Guest') AS sende
                      LEFT JOIN users ON messages.id = users.id 
                      ORDER BY created_at DESC");
 $messages = $stmt->fetchAll(PDO::FETCH_ASSOC);
-session_start();
 if (!isset($_SESSION['id'])) {
     echo "Please Login.";
     exit;
