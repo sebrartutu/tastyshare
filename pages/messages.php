@@ -3,7 +3,7 @@ require 'config.php';
 
 $stmt = $dbh->query("SELECT messages.*, IFNULL(users.username, 'Guest') AS sender_name 
                      FROM messages 
-                     LEFT JOIN users ON messages.user_id = users.user_id 
+                     LEFT JOIN users ON messages.id = users.id 
                      ORDER BY created_at DESC");
 $messages = $stmt->fetchAll(PDO::FETCH_ASSOC);
 session_start();
