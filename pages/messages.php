@@ -7,7 +7,7 @@ $stmt = $dbh->query("SELECT messages.*, IFNULL(users.username, 'Guest') AS sende
                      ORDER BY created_at DESC");
 $messages = $stmt->fetchAll(PDO::FETCH_ASSOC);
 session_start();
-if (!isset($_SESSION['user_id'])) {
+if (!isset($_SESSION['id'])) {
     echo "Please Login.";
     exit;
 }
