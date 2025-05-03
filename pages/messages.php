@@ -1,8 +1,16 @@
 <?php
 require 'config.php';
 
-$stmt = $dbh->query("SELECT * FROM messages ORDER BY created_at DESC");
+$stmt = $dbh->query("SELECT messages.*, IFNULL(users.name, 'Guest') AS sender_name 
+                     FROM messages 
+                     LEFT JOIN users ON messages.user_id = users.user_id 
+                     ORDER BY created_at DESC");
 $messages = $stmt->fetchAll(PDO::FETCH_ASSOC);
+session_start();
+if (!isset($_SESSION['user_id'])) {
+    echo "Please Login.";
+    exit;
+}
 ?>
 
   <h1>Messages</h1>
