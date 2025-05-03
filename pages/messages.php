@@ -1,15 +1,8 @@
 <?php
 require 'config.php';
 
-$stmt = $dbh->query("SELECT messages.*, IFNULL(users.username, 'Guest') AS sender_name 
-                     FROM messages 
-                     LEFT JOIN users ON messages.id = users.id 
-                     ORDER BY created_at DESC");
+$stmt = $dbh->query("SELECT * FROM messages ORDER BY created_at DESC");
 $messages = $stmt->fetchAll(PDO::FETCH_ASSOC);
-if (!isset($_SESSION['id'])) {
-    echo "Please Login.";
-    exit;
-}
 ?>
 
   <h1>Messages</h1>
@@ -23,7 +16,7 @@ if (!isset($_SESSION['id'])) {
       <td><?= htmlspecialchars($msg['name']) ?></td>
       <td><?= htmlspecialchars($msg['email']) ?></td>
       <td><?= nl2br(htmlspecialchars($msg['message'])) ?></td>
-      <td><?=date('Y-m-d H:i:s', strtotime($msg['created_at']))  ?></td>
+      <td><?= $msg['created_at'] ?></td>
     </tr>
   <?php endforeach; ?>
 </table>
